@@ -101,13 +101,10 @@ done
 if [ -n "$backup_url" ]; then
     echo "La URL opcional introducida es: $backup_url"
     # Verificar si se ha establecido el directorio del target
-    if [ -n "$TARGET_FOLDER" ]; then
-        cd "targets/$TARGET_FOLDER" || { echo "No se pudo cambiar al directorio targets/$TARGET_FOLDER"; exit 1; }
-    fi
     # Usar backup_url con qsreplace para crear ssrf.txt en la carpeta del target
     cat endpoint.txt | grep "=" | qsreplace "$backup_url" > ssrf.txt
     echo "Se ha creado el archivo ssrf.txt con las URLs modificadas en targets/$TARGET_FOLDER."
-    cat ssrf.txt | httpx -fr -fc
+    cat ssrf.txt | httpx -fr 
 fi
 
 
